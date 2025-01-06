@@ -9,5 +9,5 @@ import com.example.JobMatrixBackend.entities.Experience;
 
 @Repository
 public interface ExperienceRepository extends JpaRepository<Experience, Long> {
-    //List<Experience> findByJobSeekerId(Long jobSeekerId);
+    List<Experience> findByJobSeekerId(Long jobSeekerId);
 }

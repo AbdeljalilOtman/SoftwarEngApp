@@ -9,5 +9,5 @@ import com.example.JobMatrixBackend.entities.Project;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
-    //List<Project> findByJobSeekerId(Long jobSeekerId);
+    List<Project> findByJobSeekerId(Long jobSeekerId);
 }

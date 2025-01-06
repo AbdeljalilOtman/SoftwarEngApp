@@ -9,5 +9,5 @@ import com.example.JobMatrixBackend.entities.Skill;
 
 @Repository
 public interface SkillRepository extends JpaRepository<Skill, Long> {
-    //List<Skill> findByNameContaining(String name);
+    List<Skill> findByNameContaining(String name);
 }

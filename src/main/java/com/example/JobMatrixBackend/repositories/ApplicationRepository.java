@@ -9,7 +9,7 @@ import com.example.JobMatrixBackend.entities.Application;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
-    //List<Application> findByJobId(Long jobId);
-    //List<Application> findByJobSeekerId(Long jobSeekerId);
+    List<Application> findByJobId(Long jobId);
+    List<Application> findByJobSeekerId(Long jobSeekerId);
 }
 

@@ -9,6 +9,6 @@ import com.example.JobMatrixBackend.entities.Recruiter;
 
 @Repository
 public interface RecruiterRepository extends JpaRepository<Recruiter, Long> {
-    //Optional<Recruiter> findByEmail(String email);
+    Optional<Recruiter> findByEmail(String email);
 }
 

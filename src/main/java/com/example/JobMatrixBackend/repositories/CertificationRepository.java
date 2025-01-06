@@ -9,5 +9,6 @@ import com.example.JobMatrixBackend.entities.Certification;
 
 @Repository
 public interface CertificationRepository extends JpaRepository<Certification, Long> {
-    //List<Certification> findByJobSeekerId(Long jobSeekerId);
+    List<Certification> findByJobSeekerId(Long jobSeekerId);
+    
 }
