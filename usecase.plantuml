@@ -1,0 +1,100 @@
+@startuml
+left to right direction 
+
+actor "Job Seeker" as JS
+actor "Recruiter" as R
+
+package "Platform" {
+    
+    usecase "Register" as UC1
+    usecase "Input Academic Background, Skills, Experience" as UC2
+    usecase "Post Job Details" as UC3
+    usecase "Specify Required Skills and Experience" as UC4
+    
+    JS --> UC1
+    JS --> UC2
+    
+    R --> UC1
+    R --> UC3
+    R --> UC4
+}
+
+
+package "Job Seeker Registration"  {
+    usecase "Collect Personal Details: Name, Email, Password" as JS1
+    usecase "Select Field" as JS2
+    usecase "Choose Institution and Program" as JS3
+    usecase "Email Verification" as JS4
+    
+    JS1 -up-> UC1 : <<extend>>
+    JS2 -up-> UC1 : <<extend>>
+    JS3 -up-> UC1 : <<extend>>
+    JS4 -up-> UC1 : <<extend>>
+
+    JS --> JS1
+    JS --> JS2
+    JS --> JS3
+    JS --> JS4
+}
+
+package "Recruiter Registration" {
+    usecase "Collect Company Name, Representative Name, Email, Password" as R1
+    usecase "Email Verification" as R2
+
+    R1 -up-> UC1 : <<extend>>
+    R2 -up-> UC1 : <<extend>>
+
+    R --> R1
+    R --> R2
+}
+
+package "Job Seeker Profile" {
+    usecase "Update" as UC_Update
+
+    usecase "Add/Update Personal Information" as JSProfile1
+    usecase "Add/Update Education, Experience" as JSProfile2
+    usecase "Add Skills (Predefined/Custom)" as JSProfile3
+    usecase "Add Certifications and Projects" as JSProfile4
+    usecase "Upload Resume and Portfolio" as JSProfile5
+    usecase "Add/Update Job of Interest" as Interest1
+    
+    UC_Update -up-> JSProfile1 : <<extend>>
+    UC_Update -up-> JSProfile2 : <<extend>>
+    UC_Update -up-> JSProfile3 : <<extend>>
+    UC_Update -up-> JSProfile4 : <<extend>>
+    UC_Update -up-> JSProfile5 : <<extend>>
+    UC_Update -up-> Interest1 : <<extend>>
+    
+    JS --> Interest1
+    JS --> JSProfile1
+    JS --> JSProfile2
+    JS --> JSProfile3
+    JS --> JSProfile4
+    JS --> JSProfile5
+}
+
+package "Recruiter Profile" {
+    usecase "Manage Company Profile" as RProfile1
+    usecase "Add Company Logo and Description" as RProfile2
+    usecase "View Applications" as RProfile3
+    
+    R --> RProfile1
+    R --> RProfile2
+    R --> RProfile3
+}
+
+package "Post a Job" {
+    usecase "Add Job Title" as Job1
+    usecase "Add Job Description" as Job2
+    usecase "Select Required Skills (Predefined/Custom)" as Job3
+    usecase "Specify Required Experience" as Job4
+    
+    R --> Job1
+    R --> Job2
+    R --> Job3
+    R --> Job4
+}
+
+
+JS --> UC_Update
+@enduml
