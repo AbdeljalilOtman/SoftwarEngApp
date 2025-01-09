@@ -3,16 +3,22 @@ package com.example.JobMatrixBackend.entities;
 import java.util.ArrayList;
 
 
+
 import java.util.List;
 import com.example.JobMatrixBackend.entities.Job;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

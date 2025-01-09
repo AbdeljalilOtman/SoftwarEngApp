@@ -2,9 +2,14 @@ package com.example.JobMatrixBackend.entities;
 
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "projects")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

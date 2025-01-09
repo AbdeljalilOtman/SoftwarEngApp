@@ -1,33 +1,45 @@
 package com.example.JobMatrixBackend.services;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
 
 import com.example.JobMatrixBackend.entities.Experience;
 import com.example.JobMatrixBackend.repositories.ExperienceRepository;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExperienceService {
+
     private final ExperienceRepository experienceRepository;
 
     public ExperienceService(ExperienceRepository experienceRepository) {
         this.experienceRepository = experienceRepository;
     }
 
-    public Experience saveExperience(Experience experience) {
+    public Experience save(Experience experience) {
         return experienceRepository.save(experience);
     }
 
-    public List<Experience> getExperiencesByJobSeekerId(Long jobSeekerId) {
-        return experienceRepository.findByJobSeekerId(jobSeekerId);
+    public Experience findById(Long id) {
+        return experienceRepository.findById(id)
+                .orElseThrow();
     }
 
-    public Optional<Experience> getExperienceById(Long id) {
-        return experienceRepository.findById(id);
+    public List<Experience> findAll() {
+        return experienceRepository.findAll();
     }
 
-    public void deleteExperience(Long id) {
+    public Experience update(Long id, Experience experience) throws Exception {
+        if (!experienceRepository.existsById(id)) {
+            throw new Exception("Experience not found with id: " + id);
+        }
+        experience.setId(id);
+        return experienceRepository.save(experience);
+    }
+
+    public void delete(Long id) throws Exception {
+        if (!experienceRepository.existsById(id)) {
+            throw new Exception("Experience not found with id: " + id);
+        }
         experienceRepository.deleteById(id);
     }
 }

@@ -4,6 +4,9 @@ package com.example.JobMatrixBackend.entities;
 
 
 import java.util.ArrayList;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 import java.util.List;
@@ -21,6 +24,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class JobSeeker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
