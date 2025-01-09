@@ -89,12 +89,12 @@
           };
   
           // Example endpoint: PUT /api/jobseekers/:id
-          const response = await api.put(`/api/jobseekers/${this.user.id}`, payload);
+          const response = await api.put(`http://localhost:8080/api/job-seekers/${this.user.id}`, payload);
           // Potentially update the store with new user data: 
           // this.$store.commit('SET_USER', response.data);
   
           alert('Account updated successfully!');
-        } catch (error) {
+        } catch (error) { 
           console.error('Update Account Error:', error);
           alert('Failed to update account. Check console for details.');
         }

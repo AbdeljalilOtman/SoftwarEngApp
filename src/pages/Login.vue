@@ -32,11 +32,11 @@
     methods: {
       ...mapActions(['loginUser']),
       async login() {
+        console.log("l7oua ");
         try {
-          await this.loginUser({
-            email: this.email,
-            password: this.password
-          });
+          const response = await axios.get(`http://localhost:8080/api/job-seekers/login?email=${this.email}&password=${this.password}`);
+          console.log(response.data);
+        
           this.$router.push('/dashboard');
         } catch (error) {
           alert('Login failed. Please check console for details.');
