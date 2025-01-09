@@ -1,11 +1,11 @@
 import { createStore } from 'vuex';
-import api from '@/services/api.js'; // changed from `axios`
+import api from '@/services/api.js';
 
 export default createStore({
   state: {
     user: null,
-    token: null,
-    isAuthenticated: false,
+    token: localStorage.getItem('token') || null,
+    isAuthenticated: !!localStorage.getItem('token'),
   },
   mutations: {
     SET_USER(state, user) {
@@ -13,44 +13,56 @@ export default createStore({
     },
     SET_TOKEN(state, token) {
       state.token = token;
+      localStorage.setItem('token', token); // Save token in localStorage
     },
     SET_AUTHENTICATED(state, isAuth) {
       state.isAuthenticated = isAuth;
-    }
+    },
+    CLEAR_AUTH(state) {
+      state.user = null;
+      state.token = null;
+      state.isAuthenticated = false;
+      localStorage.removeItem('token'); // Clear token from localStorage
+    },
   },
   actions: {
     async registerUser({ commit }, payload) {
       try {
-        // Use custom instance
-        const { data } = await api.post('/api/jobseekers/register', payload);
+        // Send the registration request to the backend
+        const { data } = await api.post('/api/job-seekers/register', payload);
+        
+        // Commit user and token data to the store
         commit('SET_USER', data.user);
         commit('SET_TOKEN', data.token);
         commit('SET_AUTHENTICATED', true);
-        localStorage.setItem('token', data.token);
+
+        return data; // Optionally return data to be used in the frontend
       } catch (error) {
         console.error('Registration Error:', error);
-        throw error;
+        throw error; // This will be caught in the component
       }
     },
     async loginUser({ commit }, payload) {
       try {
-        // Use custom instance
-        const { data } = await api.post('/api/login', payload);
-        commit('SET_USER', data.user);
-        commit('SET_TOKEN', data.token);
+        commit('SET_USER', payload.user);
+        commit('SET_TOKEN', payload.token);
         commit('SET_AUTHENTICATED', true);
-        localStorage.setItem('token', data.token);
       } catch (error) {
         console.error('Login Error:', error);
         throw error;
       }
     },
     logout({ commit }) {
-      commit('SET_USER', null);
-      commit('SET_TOKEN', null);
-      commit('SET_AUTHENTICATED', false);
-      localStorage.removeItem('token');
-    }
+      commit('CLEAR_AUTH');
+    },
+    initializeAuth({ commit }) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        // Optionally decode and validate the token here
+        commit('SET_TOKEN', token);
+        commit('SET_AUTHENTICATED', true);
+      }
+    },
   },
   getters: {
     getUser(state) {
@@ -59,5 +71,5 @@ export default createStore({
     isAuthenticated(state) {
       return state.isAuthenticated;
     },
-  }
+  },
 });

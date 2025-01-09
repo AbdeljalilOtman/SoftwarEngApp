@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapActions } from 'vuex';
 
 export default {
   name: "Register",
@@ -42,18 +42,19 @@ export default {
   methods: {
     async register() {
       try {
-        const response = await axios.post("http://localhost:8080/api/job-seekers/register", {
+        // Register the user
+        const response = await this.$store.dispatch('registerUser', {
           name: this.name,
           email: this.email,
           password: this.password,
-          fieldOfInterest: this.fieldOfInterest, // Ensure this matches your backend property
+          fieldOfInterest: this.fieldOfInterest,
         });
 
-        console.log(response.data);
+        // After successful registration, redirect to dashboard or home page
         alert("Registration successful!");
-        this.$router.push("/dashboard"); // Redirect after successful registration
+        this.$router.push(`/dashboard/${response.user.id}`); // Redirect after successful registration
       } catch (error) {
-        console.error("Registration failed:", error.response || error);
+        console.error("Registration failed:", error);
         alert("Registration failed. Please try again.");
       }
     },
