@@ -26,11 +26,11 @@ import jakarta.persistence.OneToMany;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-public class JobSeeker {
+public class JobSeeker{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     private String name;
     private String email;
     private String password;
@@ -180,6 +180,11 @@ public class JobSeeker {
 
 	public JobSeeker() {
 		super();
+	}
+
+	public JobSeeker(String name, String email) {
+		this.name = name;
+		this.email = email;
 	}
 
     

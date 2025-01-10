@@ -22,11 +22,10 @@ import jakarta.persistence.OneToMany;
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
-public class Recruiter {
+public class Recruiter{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String companyName;
     private String representativeName;
     private String email;
